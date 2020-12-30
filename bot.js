@@ -5,7 +5,6 @@ const fs = require('fs');
 const Sold = require('./models/Sold');
 const mongoose = require('mongoose')
 mongoose.Promise = require('bluebird');
-//const {installMouseHelper} = require('./extras/install_mouse_helper');
 puppeteer.use(pluginStealth())
 
 
@@ -13,11 +12,11 @@ puppeteer.use(pluginStealth())
 // ####################################
 // ####################################
 // Parameters to set
-
 // url: url to the product page
 const xboxurl = 'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2334524.m570.l1312&_nkw=xbox+series+x&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=ps5';//'https://www.nike.com/us/launch/t/kobe-4-protro-wizenard/';
 const ps5url =  'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1313&_nkw=ps5&_sacat=0';
 
+   // Function to connect to Mongo Db
 	async function connectDatabase(){
 		try{
 			await mongoose.connect('mongodb://localhost:27017/naze-bot', {
@@ -36,7 +35,7 @@ const ps5url =  'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570
 		}
 
 	}
-
+   //Function for saving data
 	async function saveData(text,item){
 
 		await connectDatabase();
@@ -75,10 +74,10 @@ const ps5url =  'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570
 		saveData(Number(result.text.split(' ')[0]), item);
 		await browser.close();
 	}
-
+   //Function for Displaying Saved Records
 	async function DisplayRecords(){
 		await connectDatabase();
-
+        //Get all items to display
 		Sold.find({ }, function (err, sells) {
 			if (err) {
 			  console.log('error occured');
@@ -92,7 +91,8 @@ const ps5url =  'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570
 	}
 
 	console.log('Bot Started .......');
-	cron.schedule('41 17 * * *', async () => {
+	//Cron Schedule, this can be scheduled to 12:00 a.m daily
+	cron.schedule('00 00 * * *', async () => {
 		await crawl(xboxurl, 'XBOX X');
 		await crawl(ps5url,'PS 5')
 		await DisplayRecords();
