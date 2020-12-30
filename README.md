@@ -6,7 +6,7 @@ A bot using Node.js / puppeteer that get number of sold ps5 and xbox x daily.
 
 - Node.js
 - git command-line tools
-- A text editor (I recommend [Notepad++](https://notepad-plus-plus.org))
+- A text editor (I recommend [VSCode](https://code.visualstudio.com/))
 
 ## Install Node.js
 
