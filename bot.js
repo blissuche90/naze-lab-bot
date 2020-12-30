@@ -36,6 +36,7 @@ const ps5url =  'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570
 		}
 
 	}
+
 	async function saveData(text,item){
 
 		await connectDatabase();
@@ -74,6 +75,7 @@ const ps5url =  'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570
 		saveData(Number(result.text.split(' ')[0]), item);
 		await browser.close();
 	}
+
 	async function DisplayRecords(){
 		await connectDatabase();
 
@@ -83,14 +85,14 @@ const ps5url =  'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570
 			}
 			sells.forEach(item => {
 			 console.log(`${item.sellcount} ${item.item}’s sold on ${item.updateAt}`)
-		
+		    console.log();
 			});
 			
 		})
 	}
 
 	console.log('Bot Started .......');
-	cron.schedule('59 14 * * *', async () => {
+	cron.schedule('41 17 * * *', async () => {
 		await crawl(xboxurl, 'XBOX X');
 		await crawl(ps5url,'PS 5')
 		await DisplayRecords();
